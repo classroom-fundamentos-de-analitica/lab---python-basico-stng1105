@@ -382,19 +382,13 @@ def pregunta_10():
 
 
     """
-    x = open("data.csv", "r").readlines()
-    l=[]
-    for i in x:
-        l.append(i.replace("\t", " "))
-    for i in x:
-        l.append(i.replace("\n", " "))
+    L = open("data.csv", "r").readlines()
+    M = [i.replace("\t", " ") for i in L]
+    M = [j.replace("\n", "") for j in L]    
 
-    S=[]
-    for i in l:
-        S.append((i[0], i.count(',') - i.count(':') + 2, i.count(':')))
-    
+    resp = [(i[0], i.count(',') - i.count(':') + 2, i.count(':')) for i in M]
 
-    return S
+    return  resp
 #print(pregunta_10())
 
 def pregunta_11():
