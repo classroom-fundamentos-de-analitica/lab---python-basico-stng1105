@@ -46,7 +46,33 @@ def pregunta_02():
     ]
 
     """
-    return
+    import csv
+    with open('data.csv', 'r') as file:
+        reader = csv.reader(file)
+        resp=[]
+        sumaA=0
+        sumaB=0
+        sumaC=0
+        sumaD=0
+        sumaE=0
+        for row in reader:
+            l = row[0].split('\t')
+            if l[0] == 'A':
+                sumaA+=1
+            elif l[0] == 'B':
+                sumaB+=1
+            elif l[0] == 'C':
+                sumaC+=1
+            elif l[0] == 'D':
+                sumaD+=1
+            elif l[0] == 'E':
+                sumaE+=1
+        resp.append(("A", sumaA))
+        resp.append(("B", sumaB))
+        resp.append(("C", sumaC))
+        resp.append(("D", sumaD))
+        resp.append(("E", sumaE))
+    return resp
 
 
 def pregunta_03():
@@ -64,8 +90,34 @@ def pregunta_03():
     ]
 
     """
-    return
-
+    import csv
+    with open('data.csv', 'r') as file:
+        reader = csv.reader(file)
+        resp=[]
+        sumaA=0
+        sumaB=0
+        sumaC=0
+        sumaD=0
+        sumaE=0
+        for row in reader:
+            l = row[0].split('\t')
+            if l[0] == 'A':
+                sumaA+=int(l[1])
+            elif l[0] == 'B':
+                sumaB+=int(l[1])
+            elif l[0] == 'C':
+                sumaC+=int(l[1])
+            elif l[0] == 'D':
+                sumaD+=int(l[1])
+            elif l[0] == 'E':
+                sumaE+=int(l[1])
+        resp.append(("A", sumaA))
+        resp.append(("B", sumaB))
+        resp.append(("C", sumaC))
+        resp.append(("D", sumaD))
+        resp.append(("E", sumaE))
+    return resp
+#print(pregunta_03())
 
 def pregunta_04():
     """
@@ -89,8 +141,21 @@ def pregunta_04():
     ]
 
     """
-    return
-
+    import csv
+    with open('data.csv', 'r') as file:
+        reader = csv.reader(file)
+        meses=[]
+        resp=[]
+        for row in reader:
+            l = row[0].split('\t')
+            l2 = l[2].split('-')
+            meses.append(l2[1])
+        ocurrencias=sorted(list(set(meses)))
+        for i in ocurrencias:
+            N = [x for x in meses if x==i]
+            resp.append((i, len(N)))
+    return resp
+#print(pregunta_04())
 
 def pregunta_05():
     """
@@ -107,8 +172,25 @@ def pregunta_05():
     ]
 
     """
-    return
-
+    import csv
+    with open('data.csv', 'r') as file:
+        reader = csv.reader(file)
+        suma=0
+        lista=[]
+        letras=[]
+        resp=[]
+        for row in reader:
+            l = row[0].split('\t')
+            if l[0] not in letras:
+                letras.append(l[0])
+            lista.append((l[0],l[1]))
+        letras=sorted(letras)
+        for i in letras:
+            N = [int(x[1]) for x in lista if x[0]==i]
+            resp.append((i, max(N), min(N)))
+        #resp.append((i, len(N)))
+    return resp
+#print(pregunta_05())
 
 def pregunta_06():
     """
@@ -132,8 +214,33 @@ def pregunta_06():
     ]
 
     """
-    return
+    
+    import re
+    x = open("data.csv", "r").readlines()
+    chars=[]
+    letras=[]
+    for row in x:
+        row = row.replace('\n', '')
+        l = row.split('\t')
+        #l[4] = l[4].replace(':', ',')
+        entrada = l[4].split(',')
+        pattern = "[a-j]{3}"
+        prog = re.compile(pattern)
+        for i in entrada:
+            aux = i.split(':')
+            chars.append(aux)
+            if prog.match(aux[0]) and (aux[0] not in letras):
+                    #print(i)
+                letras.append(aux[0])
+    #for x in chars:
+    resp=[]
+    letras=sorted(letras)
+    for i in letras:
+        N = [int(x[1]) for x in chars if x[0]==i]
+        resp.append((i, min(N), max(N)))
 
+    return resp
+#print(pregunta_06())
 
 def pregunta_07():
     """
@@ -156,8 +263,18 @@ def pregunta_07():
     ]
 
     """
-    return
-
+    x = open("data.csv", "r").readlines()
+    l = [int(z[2]) for z in x]     
+    letras = list(set(l))
+    l2 = [(z[0], int(z[2])) for z in x]
+    l2 = [list(i) for i in l2]
+    resp = []
+    letras = sorted(letras)
+    for i in letras: 
+        N = [x[0] for x in l2 if x[1]==i]
+        resp.append((i, N))
+    return resp
+#print(pregunta_07())
 
 def pregunta_08():
     """
@@ -181,8 +298,19 @@ def pregunta_08():
     ]
 
     """
-    return
-
+    x = open("data.csv", "r").readlines()
+    l = [int(z[2]) for z in x]     
+    letras = list(set(l))
+    l2 = [(z[0], int(z[2])) for z in x]
+    l2 = [list(i) for i in l2]
+    resp = []
+    letras = sorted(letras)
+    for i in letras:
+        N = [x[0] for x in l2 if x[1]==i]
+        N = list(set(N))
+        resp.append((i, sorted(N)))
+    return resp
+#print(pregunta_08())
 
 def pregunta_09():
     """
@@ -204,8 +332,33 @@ def pregunta_09():
     }
 
     """
-    return
+    import csv
+    import re
+    x = open("data.csv", "r").readlines()
+    chars=[]
+    letras=[]
+    for row in x:
+        row = row.replace('\n', '')
+        l = row.split('\t')
+        #l[4] = l[4].replace(':', ',')
+        entrada = l[4].split(',')
+        pattern = "[a-j]{3}"
+        prog = re.compile(pattern)
+        for i in entrada:
+            aux = i.split(':')
+            chars.append(aux)
+            if prog.match(aux[0]) and (aux[0] not in letras):
+                    #print(i)
+                letras.append(aux[0])
+    #for x in chars:
+    resp=[]
+    letras=sorted(letras)
+    for i in letras:
+        N = [int(x[1]) for x in chars if x[0]==i]
+        resp.append((i, len(N)))
 
+    return resp
+#print(pregunta_09())
 
 def pregunta_10():
     """
@@ -225,8 +378,20 @@ def pregunta_10():
 
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    l=[]
+    for i in x:
+        l.append(i.replace("\t", " "))
+    for i in x:
+        l.append(i.replace("\n", " "))
 
+    resp=[]
+    for i in l:
+        resp.append((i[0], i.count(',') - i.count(':') + 2, i.count(':')))
+    
+
+    return resp
+#print(pregunta_10())
 
 def pregunta_11():
     """
@@ -245,9 +410,40 @@ def pregunta_11():
     }
 
 
-    """
-    return
+    
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x] 
+    x=[z.split() for z in x]  
+    x=[(int(z[1]), z[3].split(',')) for z in x]
+    print(x)
+    lista=[]"""
+    ############
+    import re
+    x = open("data.csv", "r").readlines()
+    chars=[]
+    
+    for row in x:
+        row = row.replace('\n', '')
+        l = row.split('\t')
+        numero = int(l[1])
+        entrada = l[3].split(',')
+        chars.append((numero,entrada))
+    letras = []
+    l2 = []
+    for i in chars:
+        l2 += i[1]
+    letras = list(set(l2))
+    letras = sorted(letras)
+    suma = []
 
+    for j in letras:
+        N = [n[0] for n in chars if j in n[1] ]
+        suma.append(sum(N))
+    resp = dict(zip(letras, suma))
+    
+    return resp
+#print(pregunta_11())
 
 def pregunta_12():
     """
@@ -264,4 +460,43 @@ def pregunta_12():
     }
 
     """
-    return
+    import re
+    x = open("data.csv", "r").readlines()
+    chars=[]
+    
+    for row in x:
+        row = row.replace('\n', '')
+        l = row.split('\t')
+        numero = l[0]
+        entrada = l[4].split(',')
+        chars.append((numero,entrada))
+    a=[]
+    b=[]
+    for i in chars:
+        a.append(i[0])
+    for i in chars:
+        b.append(i[1])
+    l=[]
+    for j in b: 
+        N = [(re.findall('\d{1,2}', x)) for x in j] 
+        l.append(N)
+
+    l2=[]
+    for k in l:
+        l2.append(sum([int(d[0]) for d in k]))
+
+    resp = list(set(a))
+    resp = sorted(resp)
+    d = [[l2[i], a[i]] for i in range(len(a))]
+
+    X=[]
+    Y=[]
+    for n in resp: 
+        g = [x[0] for x in d if x[1] == n]
+        X.append(n)
+        Y.append(sum(g))
+    dicc= dict(zip(X, Y))
+
+    return dicc
+
+#print(pregunta_12())
