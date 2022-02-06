@@ -332,7 +332,6 @@ def pregunta_09():
     }
 
     """
-    import csv
     import re
     x = open("data.csv", "r").readlines()
     chars=[]
@@ -352,10 +351,15 @@ def pregunta_09():
                 letras.append(aux[0])
     #for x in chars:
     resp=[]
+    aux1=[]
+    aux2=[]
     letras=sorted(letras)
     for i in letras:
         N = [int(x[1]) for x in chars if x[0]==i]
-        resp.append((i, len(N)))
+        #resp.append((i, len(N)))
+        aux1.append(i) 
+        aux2.append(len(N))   
+    resp = dict(zip(aux1, aux2))
 
     return resp
 #print(pregunta_09())
@@ -385,12 +389,12 @@ def pregunta_10():
     for i in x:
         l.append(i.replace("\n", " "))
 
-    resp=[]
+    S=[]
     for i in l:
-        resp.append((i[0], i.count(',') - i.count(':') + 2, i.count(':')))
+        S.append((i[0], i.count(',') - i.count(':') + 2, i.count(':')))
     
 
-    return resp
+    return S
 #print(pregunta_10())
 
 def pregunta_11():
