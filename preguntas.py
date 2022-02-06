@@ -21,7 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
+    import csv
+    with open('data.csv', 'r') as file:
+        reader = csv.reader(file)
+        suma=0
+        for row in reader:
+            l = row[0].split('\t')
+            suma = suma + int(l[1])
+    return suma
 
 
 def pregunta_02():
